@@ -1,43 +1,46 @@
 import checkWin from "./checkWin";
 import restart from "./restart";
-import { options } from './config';
-import {fillCells} from "./createArea";
-
+import { options } from "./config";
+import { fillCells } from "./createArea";
+import { playerProbability } from "./playerProbability";
+import { cellClickReducer, setPlayer } from "./store";
 
 const initialState = {
   draw: false,
   win: false,
   currentPlayer: null,
   filledCells: [],
+  player: playerProbability(),
   players: {
     playerXPositions: [],
     playerOPositions: [],
   },
 };
-
-let state = cellClickReducer(initialState, undefined);
+//
 
 export const cellClick = (target, cells) => {
-   /* cells.forEach((cell)=>{
+  /* cells.forEach((cell)=>{
     fillCells(cell);
     console.log(fillCells())
   })  */
-  console.log(target, cells);
-     if (!target.textContent) {
-      target.textContent = options.player;
+  let state = initialState;
+  
+  cellClickReducer(state, setPlayer());
+  console.log(state);
+  if (!target.textContent) {
+    target.textContent = state.player;
+  } else {
+    alert("Ячейка занята");
+    return;
+  } 
 
-    } else {
-      alert("Ячейка занята");
-      return;
-    } 
-
-   /* cells.forEach((cell) => {
+  /* cells.forEach((cell) => {
     if (cell.textContent === options.player) {
       data.push(parseInt(cell.getAttribute("pos")));
     }
    }); */
 
-   if (checkWin(cells)) {
+  if (checkWin(cells)) {
     restart("Выиграл: " + options.player, cells, options.currentPlayer);
   } else {
     let draw = true;
@@ -49,7 +52,7 @@ export const cellClick = (target, cells) => {
     if (draw) {
       restart("Ничья", cells, options.currentPlayer);
     }
-  } 
-  options.player = options.player === options.X ? options.O : options.X;
-  options.currentPlayer.textContent = options.player.toUpperCase();
+  }
+
+  //options.currentPlayer.textContent = options.player.toUpperCase();
 };

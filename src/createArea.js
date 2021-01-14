@@ -1,10 +1,4 @@
 import { cellClick } from "./cellClick";
-const WIN_PLAYER = "WIN_PLAYER";
-const DRAW = "DRAW";
-const FILLED_CELLS = "FILLED_CELLS";
-const PLAYER_X_POSITIONS = "PLAYER_X_POSITIONS";
-const PLAYER_O_POSITIONS = "PLAYER_O_POSITIONS";
-
 
 export const createArea = (content) => {
 

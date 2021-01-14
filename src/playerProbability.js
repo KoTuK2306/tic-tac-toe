@@ -1,11 +1,9 @@
-const playerProbability = (options) => {
+export const playerProbability = () => {
+  let player = "";
   let prob = Math.random() * (1 - 0) + 0;
   if (prob > 0.5) {
-    options.player = options.X;
+    player = "X";
   } else {
-    options.player = options.O;
+    player = "O";
   }
-  options.currentPlayer.textContent = options.player.toUpperCase();
 };
-
-export default playerProbability;
